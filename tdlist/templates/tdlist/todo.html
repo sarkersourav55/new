@@ -1,0 +1,25 @@
+{%load static%}
+<html>
+    <head>
+        <link rel="stylesheet" href="{%static 'tdlist/todo.css'%}">
+    </head>
+    <body>
+        <div id="hello">
+            <div id="heading">Todo list</div>
+            <a href="{% url 'completed' %}" id="sup" >Delete completed todoes</a>
+            <a href="{% url 'all' %}" id="sup">Delete all</a>
+            <form method="POST" action="{% url 'add' %}">
+                {% csrf_token %}
+                {{ form.text }}
+            </form>
+            {%for a in todolist%}
+            {% if a.complete %}
+                <div id="todolist2">{{a.text}}</div>
+            {%else%}
+            <a href="{% url 'complete' a.id %}"><div id="todolist">{{a.text}}</div></a>
+            {%endif%}         
+            {%endfor%}
+            
+        </div>
+    </body>
+</html>
